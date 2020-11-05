@@ -16,6 +16,7 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 # Application definition
 INSTALLED_APPS = [
+    "rest_framework",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -23,6 +24,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "core",
+    "api",
 ]
 
 MIDDLEWARE = [
@@ -112,3 +114,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
+
+# Some Django Rest Framework parameters
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication"
+    ],
+    "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
+}

@@ -93,8 +93,6 @@ class Migration(migrations.Migration):
                 "db_table": "users",
                 "ordering": ["first_name", "last_name"],
             },
-            managers=[
-                ("objects", core.managers.UserManager()),
-            ],
+            managers=[("objects", core.managers.UserManager())],
         ),
     ]

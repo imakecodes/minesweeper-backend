@@ -7,6 +7,7 @@ help:
 	@echo "⭐️ help            : Show this message"
 	@echo "⭐️ clean           : Removes all python cache and temporary files"
 	@echo "⭐️ run             : Runs the application using docker-compose"
+	@echo "⭐️ lint            : Lint the source using flake8 codestyle"
 	@echo "―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"
 
 clean:
@@ -18,3 +19,6 @@ clean:
 
 run:
 	@docker-compose up
+
+lint:
+	@flake8 .

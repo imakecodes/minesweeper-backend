@@ -9,25 +9,57 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Game',
+            name="Game",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Creation date')),
-                ('modified_at', models.DateTimeField(auto_now=True, verbose_name='Last update')),
-                ('rows', models.PositiveIntegerField(default=10, verbose_name='Board rows')),
-                ('cols', models.PositiveIntegerField(default=10, verbose_name='Board cols')),
-                ('mines', models.PositiveIntegerField(default=5, verbose_name='Mines on board')),
-                ('board', django_mysql.models.JSONField(default=internal.utils.empty_list, verbose_name='Generated board')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Creation date"
+                    ),
+                ),
+                (
+                    "modified_at",
+                    models.DateTimeField(auto_now=True, verbose_name="Last update"),
+                ),
+                (
+                    "rows",
+                    models.PositiveIntegerField(default=10, verbose_name="Board rows"),
+                ),
+                (
+                    "cols",
+                    models.PositiveIntegerField(default=10, verbose_name="Board cols"),
+                ),
+                (
+                    "mines",
+                    models.PositiveIntegerField(
+                        default=5, verbose_name="Mines on board"
+                    ),
+                ),
+                (
+                    "board",
+                    django_mysql.models.JSONField(
+                        default=internal.utils.empty_list,
+                        verbose_name="Generated board",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Game',
-                'verbose_name_plural': 'Games',
-                'db_table': 'games',
+                "verbose_name": "Game",
+                "verbose_name_plural": "Games",
+                "db_table": "games",
             },
         ),
     ]

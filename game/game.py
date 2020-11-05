@@ -11,9 +11,7 @@ class Minesweeper:
 
     def create_board(self):
         """ Creating the board cells with 0 as default value """
-        for rows in range(0, self.rows):
-            cols = [0 for col in range(0, self.cols)]
-            self.board.append(cols)
+        self.board = [[0 for col in range(self.cols)] for row in range(self.rows)]
 
     def put_mine(self):
         """Put a single mine  on the board.
@@ -71,7 +69,7 @@ class Minesweeper:
             return False
 
     def is_point_in_board(self, row, col):
-        """ Checks whether the location have a pontuation for the player """
+        """ Checks whether the location is inside board """
         if row in range(0, self.rows) and col in range(0, self.cols):
             return True
         return False
@@ -79,24 +77,12 @@ class Minesweeper:
     def increment_safe_point(self, row, col):
         """ Creates the mine's pontuation frame """
 
-        # Can't be greater than our matrix
-        if row > self.rows:
-            return
-        if col > self.cols:
-            return
-
-        # Can't be lower than 0
-        if row < 0:
-            return
-        if col < 0:
+        # Ignores if the point whether not in the board
+        if not self.is_point_in_board(row, col):
             return
 
         # Verify if the position have a mine on it
         if self.is_mine(row, col):
-            return
-
-        # Ignores if the point isn't in the board
-        if not self.is_point_in_board(row, col):
             return
 
         # Increment the value of the position becaus is close to some mine

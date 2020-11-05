@@ -22,3 +22,6 @@ run:
 
 lint:
 	@flake8 .
+
+test:
+	@docker-compose run --rm app-test python manage.py test

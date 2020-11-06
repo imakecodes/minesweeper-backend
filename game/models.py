@@ -2,20 +2,24 @@ from enum import IntEnum
 from django.db import models
 from django_mysql.models import JSONField
 
-from internal.utils import empty_list
+from internal.utils import empty_list, empty_object
 from .game import Minesweeper
 
 
-class GameStatuses(IntEnum):
+class EnumChoicesBase(IntEnum):
     """ Enum was used as choices of Game.status because explicit is better than implicit """
-
-    NOT_PLAYED = 0
-    PLAYING = 1
-    FINISHED = 2
 
     @classmethod
     def choices(cls):
         return [(key.value, key.name) for key in cls]
+
+
+class GameStatuses(EnumChoicesBase):
+    """ Statuses used by the player and system on game """
+
+    NOT_PLAYED = 0
+    PLAYING = 1
+    FINISHED = 2
 
 
 class Game(models.Model):
@@ -63,3 +67,36 @@ class Game(models.Model):
         verbose_name = "Game"
         verbose_name_plural = "Games"
         db_table = "games"
+
+
+class EventTypes(EnumChoicesBase):
+    """ Event types to generate a game timeline """
+
+    CREATE_GAME = 0
+    PAUSE = 1
+    RESUME = 2
+    CLICK_MINE = 3
+    CLICK_POINT = 4
+    CLICK_EMPTY = 5
+    CLICK_FLAG = 6
+    GAME_OVER = 7
+
+
+class GameEvent(models.Model):
+    created_at = models.DateTimeField("Creation date", auto_now_add=True)
+    game = models.ForeignKey("game.Game", on_delete=models.CASCADE)
+
+    type = models.IntegerField(
+        choices=EventTypes.choices(),
+        default=EventTypes.CREATE_GAME,
+        help_text="The game event",
+    )
+
+    metadata = JSONField(
+        "Event metadata", default=empty_object, help_text="Some usefull event metadata"
+    )
+
+    class Meta:
+        verbose_name = "Game event"
+        verbose_name_plural = "Game events"
+        db_table = "game_events"

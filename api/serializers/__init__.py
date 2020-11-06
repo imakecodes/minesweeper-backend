@@ -1,4 +1,4 @@
-from .game import GameSerializer
+from .game import GameSerializer, GameEventSerializer
 
 
-__all__ = ["GameSerializer"]
+__all__ = ["GameSerializer", "GameEventSerializer"]

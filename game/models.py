@@ -72,7 +72,7 @@ class Game(models.Model):
 class EventTypes(EnumChoicesBase):
     """ Event types to generate a game timeline """
 
-    CREATE_GAME = 0
+    START_GAME = 0
     PAUSE = 1
     RESUME = 2
     CLICK_MINE = 3
@@ -88,7 +88,7 @@ class GameEvent(models.Model):
 
     type = models.IntegerField(
         choices=EventTypes.choices(),
-        default=EventTypes.CREATE_GAME,
+        default=EventTypes.START_GAME,
         help_text="The game event",
     )
 

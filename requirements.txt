@@ -4,33 +4,46 @@
 #
 #    pip-compile requirements.txt
 #
-appdirs==1.4.4            # via -r requirements.txt, black
+appdirs==1.4.4            # via -r requirements.txt, black, virtualenv
 asgiref==3.3.0            # via -r requirements.txt, django
 black==20.8b1             # via -r requirements.txt
+cfgv==3.2.0               # via pre-commit
 click==7.1.2              # via -r requirements.txt, black
+distlib==0.3.1            # via virtualenv
 django-dbml==0.3.5        # via -r requirements.txt
 django-mysql==3.9.0       # via -r requirements.txt
 django==3.1.3             # via -r requirements.txt, django-mysql, djangorestframework
 djangorestframework==3.12.1  # via -r requirements.txt
+filelock==3.0.12          # via virtualenv
+flake8==3.8.4             # via -r requirements.txt
 gevent==20.9.0            # via -r requirements.txt
 greenlet==0.4.17          # via -r requirements.txt, gevent
+identify==1.5.9           # via pre-commit
+importlib-metadata==2.0.0  # via -r requirements.txt, flake8, pre-commit, virtualenv
+mccabe==0.6.1             # via -r requirements.txt, flake8
 mypy-extensions==0.4.3    # via -r requirements.txt, black
 mysqlclient==2.0.1        # via -r requirements.txt
+nodeenv==1.5.0            # via pre-commit
 pathspec==0.8.0           # via -r requirements.txt, black
 pendulum==2.1.2           # via -r requirements.txt
+pre-commit==2.8.2         # via -r requirements.txt
+pycodestyle==2.6.0        # via -r requirements.txt, flake8
+pyflakes==2.2.0           # via -r requirements.txt, flake8
 python-dateutil==2.8.1    # via -r requirements.txt, pendulum
 pytz==2020.4              # via -r requirements.txt, django
 pytzdata==2020.1          # via -r requirements.txt, pendulum
+pyyaml==5.3.1             # via pre-commit
 regex==2020.10.28         # via -r requirements.txt, black
-six==1.15.0               # via -r requirements.txt, python-dateutil
+six==1.15.0               # via -r requirements.txt, python-dateutil, virtualenv
 sqlparse==0.4.1           # via -r requirements.txt, django
-toml==0.10.2              # via -r requirements.txt, black
+toml==0.10.2              # via -r requirements.txt, black, pre-commit
 typed-ast==1.4.1          # via -r requirements.txt, black
 typing-extensions==3.7.4.3  # via -r requirements.txt, black
 uwsgi==2.0.19.1           # via -r requirements.txt
+virtualenv==20.1.0        # via pre-commit
+zipp==3.4.0               # via -r requirements.txt, importlib-metadata
 zope.event==4.5.0         # via -r requirements.txt, gevent
 zope.interface==5.1.2     # via -r requirements.txt, gevent
-flake8
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

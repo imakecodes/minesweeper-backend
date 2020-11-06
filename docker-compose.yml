@@ -18,6 +18,28 @@ services:
       - 8000:8000
     links:
       - db
+  app-test:
+    build: .
+    container_name: mines-app-test
+    volumes:
+      - ./commands:/commands
+      - .:/app
+    environment:
+      - DB_USER=root
+      - DB_PASS=minesweeper
+      - DB_HOST=db
+      - DB_NAME=minesweeper
+      - DB_PORT=3306
+      - DEBUG=1
+    links:
+      - db-test
+  db-test:
+    image: mysql:8
+    container_name: mines-db-test
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=minesweeper
+      - MYSQL_DATABASE=minesweeper
   db:
     image: mysql:8
     container_name: mines-db

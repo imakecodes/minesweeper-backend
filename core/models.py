@@ -14,7 +14,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField("date joined", auto_now_add=True)
 
     is_active = models.BooleanField("User active?", default=True)
-    is_staff = models.BooleanField("Staff?", default=False)
+    is_staff = models.BooleanField("Staff?", default=True)
     is_superuser = models.BooleanField("Superuser?", default=False)
 
     objects = UserManager()

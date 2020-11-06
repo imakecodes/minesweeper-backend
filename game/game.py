@@ -4,10 +4,13 @@ import random
 class Minesweeper:
     board = []
 
-    def __init__(self, rows=10, cols=10, mines=5):
+    def __init__(self, rows=10, cols=10, mines=5, board=None):
         self.rows = rows
         self.cols = cols
         self.mines = mines
+
+        if board is not None:
+            self.board = board
 
     def create_board(self):
         """ Creating the board cells with 0 as default value """

@@ -80,6 +80,7 @@ class EventTypes(EnumChoicesBase):
     CLICK_EMPTY = 5
     CLICK_FLAG = 6
     GAME_OVER = 7
+    CLICK_NAIVE = 8
 
 
 class GameEvent(models.Model):

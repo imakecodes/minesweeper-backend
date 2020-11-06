@@ -24,7 +24,7 @@ class Game(models.Model):
             ms.put_mines()
             self.board = ms.board
 
-        super(Game, self).save(self, *args, **kwargs)
+        super(Game, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Game"

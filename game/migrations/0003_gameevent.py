@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                     "type",
                     models.IntegerField(
                         choices=[
-                            (0, "CREATE_GAME"),
+                            (0, "START_GAME"),
                             (1, "PAUSE"),
                             (2, "RESUME"),
                             (3, "CLICK_MINE"),
@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
                             (6, "CLICK_FLAG"),
                             (7, "GAME_OVER"),
                         ],
-                        default=game.models.EventTypes["CREATE_GAME"],
+                        default=game.models.EventTypes["START_GAME"],
                         help_text="The game event",
                     ),
                 ),

@@ -97,6 +97,7 @@ class GameEvent(models.Model):
     )
 
     class Meta:
+        ordering = ["created_at"]
         verbose_name = "Game event"
         verbose_name_plural = "Game events"
         db_table = "game_events"

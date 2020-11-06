@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from game.models import Game
+from game.models import Game, GameEvent
 from ..serializers import GameSerializer, GameEventSerializer
 
 
@@ -31,6 +31,12 @@ class GameSingleResource(APIView):
 
 
 class GameEventResource(APIView):
+    def get(self, request, game_id):
+        """ Returns a list of all game events """
+        events = GameEvent.objects.filter(game_id=game_id)
+        serializer = GameEventSerializer(events, many=True)
+        return Response(serializer.data)
+
     def post(self, request, game_id):
         """ Creates a new event """
 

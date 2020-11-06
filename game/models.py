@@ -2,7 +2,7 @@ from enum import IntEnum
 from django.db import models
 from django_mysql.models import JSONField
 
-from internal.utils import empty_list, empty_object
+from internal.utils import empty_list
 from .game import Minesweeper
 
 
@@ -19,7 +19,8 @@ class GameStatuses(EnumChoicesBase):
 
     NOT_PLAYED = 0
     PLAYING = 1
-    FINISHED = 2
+    PAUSED = 2
+    FINISHED = 3
 
 
 class Game(models.Model):
@@ -93,8 +94,19 @@ class GameEvent(models.Model):
         help_text="The game event",
     )
 
-    metadata = JSONField(
-        "Event metadata", default=empty_object, help_text="Some usefull event metadata"
+    event_row = models.PositiveIntegerField(
+        "The row clicked",
+        default=None,
+        null=True,
+        blank=True,
+        help_text="Row on the board where the event occurred, if applicable",
+    )
+    event_col = models.PositiveIntegerField(
+        "The column clicked",
+        default=None,
+        null=True,
+        blank=True,
+        help_text="Column on the board where the event occurred, if applicable",
     )
 
     class Meta:

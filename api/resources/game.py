@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from game.models import Game, GameEvent
+from game.models import Game, GameEvent, GameStatuses
 from ..serializers import GameSerializer, GameEventSerializer
 
 
@@ -41,9 +41,16 @@ class GameEventResource(APIView):
         """ Creates a new event """
 
         try:
-            Game.objects.get(pk=game_id)
+            game = Game.objects.get(pk=game_id)
         except Game.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+        print(game.status, game.status == GameStatuses.FINISHED)
+        if game.status == GameStatuses.FINISHED:
+            print("WTF, DEVERIA PASSAR AQUI")
+            return Response(
+                {"message": "Game is already finished"},
+                status=status.HTTP_412_PRECONDITION_FAILED,
+            )
 
         serializer = GameEventSerializer(data=request.data)
         if serializer.is_valid():

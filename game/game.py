@@ -65,9 +65,23 @@ class Minesweeper:
         self.increment_safe_point(mine_position_row - 1, mine_position_col - 1)
 
     def is_mine(self, row, col):
-        """ Checks whether the given location is a mine or not """
+        """ Checks whether the given location have a mine """
         try:
             return self.board[row][col] == -1
+        except IndexError:
+            return False
+
+    def is_empty(self, row, col):
+        """ Checks whether the given location is empty """
+        try:
+            return self.board[row][col] == 0
+        except IndexError:
+            return False
+
+    def is_point(self, row, col):
+        """ Checks whether the given location have pontuation """
+        try:
+            return self.board[row][col] > 0
         except IndexError:
             return False
 

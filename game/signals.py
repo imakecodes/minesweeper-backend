@@ -14,33 +14,6 @@ def game_start(sender, signal, instance, **kwargs):
 
 
 @receiver(pre_save, sender=GameEvent)
-def mark_game_as_playing(sender, signal, instance, **kwargs):
-    """ When event match, mark the game instance as playing """
-
-    playing_events = [
-        EventTypes.START_GAME,
-        EventTypes.RESUME,
-        EventTypes.CLICK_MINE,
-        EventTypes.CLICK_POINT,
-        EventTypes.CLICK_EMPTY,
-        EventTypes.CLICK_FLAG,
-    ]
-
-    if instance.type in playing_events:
-        instance.game.status = GameStatuses.PLAYING
-        instance.game.save()
-
-    elif instance.type == EventTypes.PAUSE:
-        instance.game.status = GameStatuses.PAUSED
-        instance.game.save()
-
-    if instance.type == EventTypes.CLICK_MINE:
-        instance.game.status = GameStatuses.FINISHED
-        instance.game.win = False
-        instance.game.save()
-
-
-@receiver(pre_save, sender=GameEvent)
 def identify_click_event(sender, signal, instance, **kwargs):
     """ Verify what is on the naive click: mine, point or empty """
     if not instance.type == EventTypes.CLICK_NAIVE:
@@ -64,3 +37,29 @@ def identify_click_event(sender, signal, instance, **kwargs):
 
     elif ms.is_point(instance.row, instance.col):
         instance.type = EventTypes.CLICK_POINT
+
+
+@receiver(post_save, sender=GameEvent)
+def create_post_save_game_event(sender, signal, instance, **kwargs):
+    playing_events = [
+        EventTypes.START_GAME,
+        EventTypes.RESUME,
+        EventTypes.CLICK_POINT,
+        EventTypes.CLICK_EMPTY,
+        EventTypes.CLICK_FLAG,
+    ]
+
+    if instance.type in playing_events:
+        instance.game.status = GameStatuses.PLAYING
+        instance.game.save()
+
+    if instance.type == EventTypes.PAUSE:
+        instance.game.status = GameStatuses.PAUSED
+        instance.game.save()
+
+    if instance.type == EventTypes.CLICK_MINE:
+        instance.game.status = GameStatuses.FINISHED
+        instance.game.win = False
+        instance.game.save()
+
+        GameEvent(game=instance.game, type=EventTypes.GAME_OVER).save()

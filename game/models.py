@@ -38,7 +38,7 @@ class Game(models.Model):
     )
 
     board = JSONField(
-        "Generated board", default=empty_list, help_text="Whe generated board game"
+        "Generated board", default=empty_list, help_text="The generated board game"
     )
     win = models.BooleanField(
         "Win?",

@@ -67,6 +67,7 @@ class Game(models.Model):
             ms.create_board()
             ms.put_mines()
             self.board = ms.board
+            self.progress_board = ms.progress_board
 
         super(Game, self).save(*args, **kwargs)
 

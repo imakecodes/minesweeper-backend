@@ -41,6 +41,25 @@ def identify_click_event(sender, signal, instance, **kwargs):
 
 @receiver(post_save, sender=GameEvent)
 def create_post_save_game_event(sender, signal, instance, **kwargs):
+    ms = Minesweeper(
+        instance.game.rows,
+        instance.game.cols,
+        instance.game.mines,
+        instance.game.board,
+        instance.game.board_progress,
+    )
+    game_changed = False
+
+    reveal_events = [
+        EventTypes.CLICK_POINT,
+        EventTypes.CLICK_EMPTY,
+        EventTypes.CLICK_MINE,
+    ]
+    if instance.type in reveal_events:
+        ms.reveal(instance.row, instance.col)
+        instance.game.board_progress = ms.board_progress
+        game_changed = True
+
     playing_events = [
         EventTypes.START_GAME,
         EventTypes.RESUME,
@@ -51,15 +70,23 @@ def create_post_save_game_event(sender, signal, instance, **kwargs):
 
     if instance.type in playing_events:
         instance.game.status = GameStatuses.PLAYING
-        instance.game.save()
+        game_changed = True
 
-    if instance.type == EventTypes.PAUSE:
+    elif instance.type == EventTypes.PAUSE:
         instance.game.status = GameStatuses.PAUSED
-        instance.game.save()
+        game_changed = True
 
-    if instance.type == EventTypes.CLICK_MINE:
+    elif instance.type == EventTypes.CLICK_MINE:
         instance.game.status = GameStatuses.FINISHED
         instance.game.win = False
-        instance.game.save()
+        game_changed = True
 
         GameEvent(game=instance.game, type=EventTypes.GAME_OVER).save()
+
+    if ms.win() is True:
+        instance.game.status = GameStatuses.FINISHED
+        instance.game.win = True
+        game_changed = True
+
+    if game_changed is True:
+        instance.game.save()

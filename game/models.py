@@ -97,7 +97,7 @@ class GameEvent(models.Model):
 
     type = models.IntegerField(
         choices=EventTypes.choices(),
-        default=EventTypes.START_GAME,
+        default=EventTypes.CLICK_NAIVE,
         help_text="The game event",
     )
 

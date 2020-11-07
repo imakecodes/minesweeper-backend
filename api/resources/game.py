@@ -59,8 +59,10 @@ class GameEventResource(APIView):
                 {"message": "This event was already registered"},
                 status=status.HTTP_409_CONFLICT,
             )
+        data = dict(request.data)
+        data["game"] = game.pk
 
-        serializer = GameEventSerializer(data=request.data)
+        serializer = GameEventSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

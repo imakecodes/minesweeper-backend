@@ -24,6 +24,6 @@ class GameAdmin(admin.ModelAdmin):
 
 @admin.register(GameEvent)
 class GameEventAdmin(admin.ModelAdmin):
-    list_display = ("id", "created_at", "game", "type", "event_row", "event_col")
+    list_display = ("id", "created_at", "game", "type", "row", "col")
 
     list_filter = ("type",)

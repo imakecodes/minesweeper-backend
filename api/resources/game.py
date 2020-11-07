@@ -44,12 +44,20 @@ class GameEventResource(APIView):
             game = Game.objects.get(pk=game_id)
         except Game.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        print(game.status, game.status == GameStatuses.FINISHED)
+
         if game.status == GameStatuses.FINISHED:
-            print("WTF, DEVERIA PASSAR AQUI")
             return Response(
                 {"message": "Game is already finished"},
                 status=status.HTTP_412_PRECONDITION_FAILED,
+            )
+
+        row = request.data.get("row")
+        col = request.data.get("col")
+        game_event = GameEvent.objects.filter(game=game, row=row, col=col).first()
+        if game_event:
+            return Response(
+                {"message": "This event was already registered"},
+                status=status.HTTP_409_CONFLICT,
             )
 
         serializer = GameEventSerializer(data=request.data)

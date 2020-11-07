@@ -46,6 +46,9 @@ def identify_click_event(sender, signal, instance, **kwargs):
     if not instance.type == EventTypes.CLICK_NAIVE:
         return
 
+    if instance.row is None and instance.col is None:
+        return
+
     ms = Minesweeper(
         instance.game.rows,
         instance.game.cols,
@@ -53,11 +56,11 @@ def identify_click_event(sender, signal, instance, **kwargs):
         instance.game.board,
     )
 
-    if ms.is_mine(instance.metadata["row"], instance.metadata["col"]):
+    if ms.is_mine(instance.row, instance.col):
         instance.type = EventTypes.CLICK_MINE
 
-    elif ms.is_empty(instance.metadata["row"], instance.metadata["col"]):
+    elif ms.is_empty(instance.row, instance.col):
         instance.type = EventTypes.CLICK_EMPTY
 
-    elif ms.is_point(instance.metadata["row"], instance.metadata["col"]):
+    elif ms.is_point(instance.row, instance.col):
         instance.type = EventTypes.CLICK_POINT

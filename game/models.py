@@ -94,14 +94,14 @@ class GameEvent(models.Model):
         help_text="The game event",
     )
 
-    event_row = models.PositiveIntegerField(
+    row = models.PositiveIntegerField(
         "The row clicked",
         default=None,
         null=True,
         blank=True,
         help_text="Row on the board where the event occurred, if applicable",
     )
-    event_col = models.PositiveIntegerField(
+    col = models.PositiveIntegerField(
         "The column clicked",
         default=None,
         null=True,

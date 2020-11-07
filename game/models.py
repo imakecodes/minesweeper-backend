@@ -40,6 +40,12 @@ class Game(models.Model):
     board = JSONField(
         "Generated board", default=empty_list, help_text="The generated board game"
     )
+    board_progress = JSONField(
+        "Progress board",
+        default=empty_list,
+        help_text="This board is updated at each GameEvent recorded",
+    )
+
     win = models.BooleanField(
         "Win?",
         default=None,

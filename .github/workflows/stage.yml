@@ -2,7 +2,7 @@ name: Deploy to stage
 
 on:
   push:
-    branches: [stage]
+    branches: [feature/*, hotfix/*]
 
 jobs:
   docker:

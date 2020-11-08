@@ -25,6 +25,7 @@ Also was used Github Actions to create docker images for [backend][github/image-
 -   Change the primary key of the game from Integer to UUID to avoid cheating from the players
 -   User authentication to store the match history
 -   Create a global and by user scoreboard
+-   Create unit tests
 
 # Running locally
 

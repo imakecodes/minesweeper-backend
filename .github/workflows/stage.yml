@@ -1,0 +1,26 @@
+name: Deploy to stage
+
+on:
+  push:
+    branches: [stage]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Docker Build & Push to GitHub Package
+        uses: opspresso/action-docker@master
+        with:
+          args: --docker
+        env:
+          USERNAME: "imakecodes"
+          PASSWORD: ${{ secrets.GH_TOKEN }}
+          REGISTRY: "docker.pkg.github.com"
+          DOCKERFILE: "Dockerfile"
+          IMAGE_NAME: "minesweeper-frontend"
+          TAG_NAME: "stage"
+          LATEST: "true"

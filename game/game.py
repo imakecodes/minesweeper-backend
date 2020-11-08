@@ -111,8 +111,42 @@ class Minesweeper:
         # Increment the value of the position becaus is close to some mine
         self.board[row][col] += 1
 
+    def reveal_adjacents(self, row, col):
+        min_row = row - 1
+        if row <= 0:
+            min_row = 0
+
+        min_col = col - 1
+        if col <= 0:
+            min_col = 0
+
+        max_row = row + 2
+        if row >= len(self.board) - 1:
+            max_row = len(self.board)
+
+        max_col = col + 2
+        if col >= len(self.board[0]) - 1:
+            max_col = len(self.board[0])
+
+        r = min_row
+        while r < max_row:
+            c = min_col
+            while c < max_col:
+                if not self.board[r][c] == -1 and self.board_progress[r][c] == "-":
+                    self.board_progress[r][c] = self.board[r][c]
+
+                    if self.board[r][c] == 0:
+                        self.reveal_adjacents(r, c)
+                c += 1
+            r += 1
+
     def reveal(self, row, col):
+        """ Reveals the cell's content and yours adjacents cells """
         self.board_progress[row][col] = self.board[row][col]
+
+        # We will show adjacents only if the cell clicked is zero
+        if self.board_progress[row][col] == 0:
+            self.reveal_adjacents(row, col)
 
     def win(self):
         """ Identify if the player won the game """

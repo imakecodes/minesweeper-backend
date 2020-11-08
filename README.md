@@ -9,6 +9,7 @@
 -   [Black][stack/black] and [Flake8][stack/flake8] for codestyling
 -   [APICURIO, for API documentation][stack/apicurio]
 -   [Docker][stack/docker]
+-   [Sentry][stack/sentry] for error tracking
 
 OpenAPI 3 documentation: [https://apidoc.mines.makecodes.dev/][url/apidoc]
 Game frontend: [https://mines.makecodes.dev/][url/the-game]
@@ -61,6 +62,7 @@ The application will be available at [http://localhost:8000](http://localhost:80
 [stack/flake8]: https://flake8.pycqa.org/en/latest/
 [stack/docker]: https://www.docker.com/
 [stack/apicurio]: https://www.apicur.io/
+[stack/sentry]: https://www.sentry.io/
 [github/frontend]: https://github.com/imakecodes/minesweeper-frontend
 [url/apidoc]: https://apidoc.mines.makecodes.dev/
 [url/the-game]: https://mines.makecodes.dev/

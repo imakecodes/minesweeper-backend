@@ -30,8 +30,7 @@ class Minesweeper:
         col = random.randrange(0, self.cols)
 
         if self.is_mine(row, col):
-            self.put_mine()
-            return
+            return self.put_mine()
 
         self.board[row][col] = -1
         return row, col

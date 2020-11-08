@@ -119,6 +119,9 @@ class Minesweeper:
         unrevealed = 0
         for row in self.board_progress:
             for cell in row:
+                if cell == -1:
+                    return False
+
                 if cell == "-":
                     unrevealed += 1
         if (unrevealed - self.mines) == 0:

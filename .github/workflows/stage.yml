@@ -21,6 +21,6 @@ jobs:
           PASSWORD: ${{ secrets.GH_TOKEN }}
           REGISTRY: "docker.pkg.github.com"
           DOCKERFILE: "Dockerfile"
-          IMAGE_NAME: "minesweeper-frontend"
+          IMAGE_NAME: "minesweeper-backend"
           TAG_NAME: "stage"
           LATEST: "true"

@@ -31,6 +31,7 @@ class Minesweeper:
 
         if self.is_mine(row, col):
             self.put_mine()
+            return
 
         self.board[row][col] = -1
         return row, col

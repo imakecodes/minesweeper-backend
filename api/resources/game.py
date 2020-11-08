@@ -33,7 +33,13 @@ class GameSingleResource(APIView):
 class GameEventResource(APIView):
     def get(self, request, game_id):
         """ Returns a list of all game events """
-        events = GameEvent.objects.filter(game_id=game_id)
+
+        try:
+            game = Game.objects.get(pk=game_id)
+        except Game.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        events = GameEvent.objects.filter(game=game)
         serializer = GameEventSerializer(events, many=True)
         return Response(serializer.data)
 

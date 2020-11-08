@@ -72,24 +72,21 @@ class Minesweeper:
 
     def is_mine(self, row, col):
         """ Checks whether the given location have a mine """
-        try:
-            return self.board[row][col] == -1
-        except IndexError:
+        if not self.is_point_in_board(row, col):
             return False
+        return self.board[row][col] == -1
 
     def is_empty(self, row, col):
         """ Checks whether the given location is empty """
-        try:
-            return self.board[row][col] == 0
-        except IndexError:
+        if not self.is_point_in_board(row, col):
             return False
+        return self.board[row][col] == 0
 
     def is_point(self, row, col):
         """ Checks whether the given location have pontuation """
-        try:
-            return self.board[row][col] > 0
-        except IndexError:
+        if not self.is_point_in_board(row, col):
             return False
+        return self.board[row][col] > 0
 
     def is_point_in_board(self, row, col):
         """ Checks whether the location is inside board """

@@ -34,6 +34,7 @@ Assuming you have docker-compose and docker installed on your computer:
 
 ```bash
 git clone git@github.com:imakecodes/minesweeper-backend.git
+cd minesweeper-backend
 ```
 
 ### Run the application

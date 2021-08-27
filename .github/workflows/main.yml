@@ -17,10 +17,10 @@ jobs:
         with:
           args: --docker
         env:
-          USERNAME: "imakecodes"
-          PASSWORD: ${{ secrets.GH_TOKEN }}
-          REGISTRY: "docker.pkg.github.com"
+          USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          REGISTRY: "docker.nexus.makecodes.dev"
           DOCKERFILE: "Dockerfile"
-          IMAGE_NAME: "minesweeper-backend"
+          IMAGE_NAME: "mines-backend"
           TAG_NAME: "main"
           LATEST: "true"

@@ -1,0 +1,10 @@
+data/
+__pycache__/
+.git/
+.minio.sys/
+/static
+media/
+packages/
+django_dbml/
+node_modules/
+**/*.pyc

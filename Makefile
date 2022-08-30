@@ -2,39 +2,51 @@ all: help
 
 help:
 	@echo "―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"
-	@echo "ℹ️ Available commands ℹ️"
+	@echo "ℹ️ Comandos disponíveis ℹ️"
 	@echo "―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"
-	@echo "⭐️ help                : Show this message"
-	@echo "⭐️ clean               : Removes all python cache and temporary files"
-	@echo "⭐️ run                 : Runs the application using docker-compose"
-	@echo "⭐️ lint                : Lint the source using flake8 codestyle"
-	@echo "⭐️ test                : Runs the tests using Docker"
-	@echo "⭐️ pre-commit-install  : Install the pre-commit hook"
-	@echo "⭐️ pre-commit-run      : Runs the standalone pre-commit routine for checking files"
-	@echo "⭐️ update-requirements : Using pip-compile(from pip-tools), update the requirements.txt with fixed version of used libraries"
+	@echo "⭐️ help               : Exibe esta mensagem"
+	@echo "⭐️ run                : Executa a aplicação fora do docker"
+	@echo "⭐️ run-worker         : Executa Celery"
+	@echo "⭐️ blue               : Executa blue"
+	@echo "⭐️ isort              : Executa isort"
+	@echo "⭐️ docker-run         : Levanta toda a aplicação utilizando Docker"
+	@echo "⭐️ docker-run-app     : Levanta apenas a aplicação utilizando Docker"
+	@echo "⭐️ docker-run-worker  : Levanta apenas o Celery utilizando Docker"
+	@echo "⭐️ shell              : Acessa o shell do Django"
+	@echo "⭐️ makemigrations     : Gera as novas migrações de banco"
+	@echo "⭐️ migrate            : Executa as novas migrações de banco"
+	@echo "⭐️ collectstatic      : Atualiza os arquivos estáticos no bucket"
 	@echo "―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"
-
-clean:
-	@find . -name '*.pyc' -exec rm -f {} +
-	@find . -name '*.pyo' -exec rm -f {} +
-	@find . -name '*~' -exec rm -f {} +
-	@find . -name '__pycache__' -exec rm -fr {} +
-
 
 run:
+	@poetry run python manage.py runserver 0.0.0.0:7788
+
+celery:
+	@poetry run celery -A app worker -l INFO --concurrency=2 -Q default -E
+
+docker-run:
 	@docker-compose up
 
-lint:
-	@flake8 .
+docker-run-app:
+	@docker-compose up app
 
-test: clean
-	@docker-compose run --rm app-test python manage.py test
+docker-run-worker:
+	@docker-compose up worker
 
-pre-commit-install:
-	@pre-commit install
+shell:
+	@poetry run python manage.py shell
 
-pre-commit-run:
-	@pre-commit run --all-files
+makemigrations:
+	@poetry run python manage.py makemigrations
 
-update-requirements:
-	@pip-compile requirements.txt
+migrate:
+	@poetry run python manage.py migrate
+
+collectstatic:
+	@poetry run python manage.py collectstatic
+
+blue:
+	@poetry run blue .
+
+isort:
+	@poetry run isort .

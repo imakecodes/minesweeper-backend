@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "mines-backend"
+version = "0.1.0"
+description = ""
+authors = ["Michel Wilhelm <michelwilhelm@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4"
+django-cors-headers = "^3.13.0"
+django-dbml = "^0.5.0"
+django-mysql = "^4.7.1"
+djangorestframework = "^3.13.1"
+gevent = "^21.12.0"
+mysqlclient = "^2.1.1"
+pendulum = "^2.1.2"
+sentry-sdk = "^1.9.5"
+uWSGI = "^2.0.20"
+
+[tool.poetry.dev-dependencies]
+pre-commit = "^2.20.0"
+black = "^22.6.0"
+flake8 = "^5.0.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

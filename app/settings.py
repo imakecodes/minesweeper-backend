@@ -3,12 +3,16 @@ import os
 from pathlib import Path
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+from .utils import get_op_config
 
+op_config = get_op_config()
 
-SCOPE = os.getenv("SCOPE", "production")
+print(op_config)
+
+SCOPE = op_config['settings.SCOPE']
 
 sentry_sdk.init(
-    dsn=os.getenv("SENTRY_DSN"),
+    dsn=op_config['settings.SENTRY_DSN'],
     integrations=[DjangoIntegration()],
     environment=SCOPE,
     send_default_pii=False,
@@ -19,12 +23,12 @@ sentry_sdk.init(
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY", "changeme")
+SECRET_KEY = op_config['settings.SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "0") in ["1", "true"]
+DEBUG = op_config.get("settings.DEBUG", "0") in ["1", "true"]
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = op_config.get("settings.ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 # Application definition
 INSTALLED_APPS = [
@@ -80,11 +84,11 @@ AUTH_USER_MODEL = "core.User"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASS"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT"),
+        "NAME": op_config['database.name'],
+        "USER": op_config['database.user'],
+        "PASSWORD": op_config['database.password'],
+        "HOST": op_config['database.host'],
+        "PORT": op_config['database.port'],
         "OPTIONS": {"charset": "utf8mb4"},
     }
 }

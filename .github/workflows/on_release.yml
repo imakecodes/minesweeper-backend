@@ -55,7 +55,6 @@ jobs:
             docker-compose up -d app1
             docker exec -t mines-be0 python manage.py migrate
             docker image prune -f
-
       - name: Build finished
         if: success()
         uses: voxmedia/github-action-slack-notify-build@v1

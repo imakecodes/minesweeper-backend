@@ -1,12 +1,12 @@
 name-template: 'v$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
 categories:
-  - title: '🚀 Features'
+  - title: '🚀 Novidades'
     label: 'feature'
-  - title: '🛠 Maintenance'
-    label: 'maintenance'
+  - title: '🛠 Manutenção'
+    label: 'chore'
   - title: '🐛 Bug Fixes'
-    label: 'bug'
+    label: 'fix'
 version-resolver:
   major:
     labels:
@@ -36,5 +36,5 @@ autolabeler:
     title:
       - '/^[a-zA-Z]+(\(.*?\))?!:.+/i'
 template: |
-  ## What’s Changed
-  $CHANGES  
+  ## O que tem de novo
+  $CHANGES
